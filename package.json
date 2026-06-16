@@ -1,0 +1,34 @@
+{
+  "name": "ep_pdf_export_print",
+  "description": "One-click PDF export for Etherpad. Adds a \"PDF (print)\" entry to the Import/Export menu that renders the pad's clean HTML export through the user's OWN browser print engine (Save as PDF). No server setup, no Chromium, no dependencies — install from the admin panel and it just works. For automated server-side PDF rendering see ep_pdf_export_chromium.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ivan Forkaliuk",
+    "url": "https://github.com/forkivan"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "etherpad",
+    "plugin",
+    "ep_plugin",
+    "ep",
+    "pdf",
+    "export",
+    "print",
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forkivan/ep_pdf_export_print.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forkivan/ep_pdf_export_print/issues"
+  },
+  "homepage": "https://github.com/forkivan/ep_pdf_export_print",
+  "peerDependencies": {
+    "ep_etherpad-lite": ">=1.8.6"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  }
+}
