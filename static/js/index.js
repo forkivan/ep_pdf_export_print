@@ -84,12 +84,23 @@ const printExport = async (url) => {
   frame.addEventListener('load', () => {
     // Give the browser a tick to lay out images/fonts before printing.
     setTimeout(() => {
+      // Chrome derives the "Save as PDF" filename from the TOP document's
+      // <title>, not the printed iframe's — so the pad page title would leak
+      // into the filename. Temporarily swap the parent title to the pad name
+      // for the duration of the print dialog, then restore it.
+      const prevTitle = document.title;
+      let restored = false;
+      const restore = () => { if (!restored) { restored = true; document.title = prevTitle; } };
       try {
         try { frame.contentDocument.title = safeTitle; } catch (e) { /* ignore */ }
         const win = frame.contentWindow;
+        document.title = safeTitle;
+        win.addEventListener('afterprint', restore, {once: true});
+        setTimeout(restore, 60000); // safety net if afterprint never fires
         win.focus();
         win.print();
       } catch (err) {
+        restore();
         window.open(url, '_blank', 'noopener');
       }
     }, 300);
