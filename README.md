@@ -49,24 +49,25 @@ pnpm run plugins i ep_pdf_export_print
   `ep_file_menu_toolbar` / `ep_aa_file_menu_toolbar` and otherwise falls back to
   the stock **Import/Export** popup. Neither is required.
 
-### Recommended companion plugins (images & tables)
+### Companion plugins for images & tables — install these, or your PDFs will look broken
 
-This plugin renders whatever Etherpad's **HTML export** produces. Core Etherpad
-has no images or rich tables, so those features — and their correct appearance
-in the PDF — depend on the plugins that provide them *and* extend the HTML
-export. If your pads use them, install:
+The PDF is built from Etherpad's **HTML export**. Core Etherpad cannot export
+images or rich tables on its own, so **if your pads contain images or tables and
+these plugins are not installed, those elements will be missing or mangled in
+the PDF.** This is not optional polish — without them the output looks broken.
+If your pads use images or tables, you should install:
 
-- **Images** → [`ep_images_extended`](https://www.npmjs.com/package/ep_images_extended)
-  (or a fork such as `ep_images_extended_v2`). Without it, images won't appear
-  in the HTML export, so they won't be in the PDF either.
-- **Tables** → [`ep_data_tables`](https://www.npmjs.com/package/ep_data_tables)
+- **Images** → **[ep_images_extended_v2](https://www.npmjs.com/package/ep_images_extended_v2)**
+  — use this one. It's the fork with the HTML/DOCX export bugs fixed; the
+  original `ep_images_extended` has broken export and will leave images out of
+  the PDF.
+- **Tables** → **[ep_data_tables](https://www.npmjs.com/package/ep_data_tables)**
   for the table feature **plus**
-  [`ep_table_export`](https://www.npmjs.com/package/ep_table_export) so tables
-  are written into the HTML export (and therefore the PDF).
+  **[ep_table_export](https://www.npmjs.com/package/ep_table_export)** — without
+  `ep_table_export` your tables will not render in the export **at all**.
 
-These are not required for the plugin to run — only for images/tables to show up
-in the output. This plugin needs no special integration with them; it simply
-uses the resulting HTML.
+The plugin still runs without them, but anyone exporting a pad that has images
+or tables will get a broken-looking PDF — so install them.
 
 ## How it works
 

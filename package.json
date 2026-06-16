@@ -1,7 +1,7 @@
 {
   "name": "ep_pdf_export_print",
   "description": "One-click PDF export for Etherpad. Adds a \"PDF (print)\" entry to the Import/Export menu that renders the pad's clean HTML export through the user's OWN browser print engine (Save as PDF). No server setup, no Chromium, no dependencies — install from the admin panel and it just works. For automated server-side PDF rendering see ep_pdf_export_chromium.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Ivan Forkaliuk",
     "url": "https://github.com/forkivan"
