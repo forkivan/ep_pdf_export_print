@@ -79,6 +79,16 @@ If your pads use images or tables, you should install:
 The plugin still runs without them, but anyone exporting a pad that has images
 or tables will get a broken-looking PDF — so install them.
 
+## Usage
+
+Open a pad, then choose **Import/Export → PDF (print)**. Your browser's own
+print dialog opens with the pad already rendered:
+
+![The browser print dialog opened by the "PDF (print)" menu entry](https://raw.githubusercontent.com/forkivan/ep_pdf_export_print/main/docs/print-dialog.png)
+
+From here you can either **print it on a real printer**, or set the
+**Destination** to **“Save as PDF”** and click **Save** to download a PDF file.
+
 ## How it works
 
 1. Reuses the URL of Etherpad's built-in **Export as HTML** link (so read-only
