@@ -36,11 +36,21 @@ Or from the command line:
 pnpm run plugins i ep_pdf_export_print
 ```
 
+**You must also install these companion plugins** — this plugin does not render
+images or tables by itself, so without them those parts of your pads come out
+broken in the PDF:
+
+- **Images** → **[ep_images_extended_v2](https://www.npmjs.com/package/ep_images_extended_v2)**
+- **Tables** → **[ep_data_tables](https://www.npmjs.com/package/ep_data_tables)** + **[ep_table_export](https://www.npmjs.com/package/ep_table_export)**
+
+(Plain text, colours and alignment work without them.) See
+[Requirements & dependencies](#requirements--dependencies) below for the why.
+
 ## Requirements & dependencies
 
-- **Etherpad** (peer dependency `ep_etherpad-lite`). **No other plugin is
-  required** — it reuses Etherpad's built-in HTML export, which is always
-  present.
+- **Etherpad** (peer dependency `ep_etherpad-lite`). Nothing else is needed for
+  the export itself to **run** — but images and tables need the companion
+  plugins below to actually appear in the PDF.
 - **No server-side dependencies.** Nothing to install in your Docker image, no
   Chromium, no LibreOffice. Pure client-side.
 - A **modern browser** (uses `fetch`, an iframe `srcdoc`, and the print API —
