@@ -128,27 +128,34 @@ const makeLink = (forSubmenu) => {
   return a;
 };
 
-// Make sure our entry is present in whichever export menu exists. Idempotent.
+// Make sure our entry is present in BOTH export menus — some setups show the
+// stock Import/Export popup AND a File-menu plugin at the same time, so the
+// entry must appear in each. Idempotent.
 const ensure = () => {
-  // ep_file_menu_toolbar present: inject into its submenu, but only once it has
-  // actually been populated (so we land after its copy pass, not before it
-  // clears the list). If it isn't there yet, the observer will call us again.
-  const fileMenu = document.getElementById('file_menu_exports');
-  if (fileMenu) {
-    const submenu = fileMenu.querySelector('.submenu');
-    if (submenu && submenu.children.length && !submenu.querySelector(`[${PRINT_ATTR}]`)) {
-      submenu.appendChild(makeLink(true));
-    }
-    // When the File-menu UI is active we deliberately do NOT touch
-    // #exportColumn: that plugin would copy our handler-less anchor into the
-    // submenu as a dead duplicate.
-    return;
-  }
-
-  // Stock Import/Export popup.
+  // 1) Stock Import/Export popup (#exportColumn).
   const col = document.getElementById('exportColumn');
   if (col && !col.querySelector(`[${PRINT_ATTR}]`)) {
     col.appendChild(makeLink(false));
+  }
+
+  // 2) ep_(aa_)file_menu_toolbar's File menu, if present. It builds its submenu
+  // once at documentReady by copying #exportColumn (href + text only, no click
+  // handler). Our entry is JS-driven, so we add it to the submenu directly with
+  // its own handler. We only touch #exportColumn from postAceInit onward — after
+  // that one-time copy — so our popup entry is not duplicated here; but
+  // defensively strip any handler-less copy that matches our label, just in case
+  // the menu ever re-copies.
+  const fileMenu = document.getElementById('file_menu_exports');
+  if (fileMenu) {
+    const submenu = fileMenu.querySelector('.submenu');
+    if (submenu && submenu.children.length) {
+      submenu.querySelectorAll('a.exportlink').forEach((a) => {
+        if (!a.hasAttribute(PRINT_ATTR) && a.textContent.trim() === 'PDF (print)') a.remove();
+      });
+      if (!submenu.querySelector(`[${PRINT_ATTR}]`)) {
+        submenu.appendChild(makeLink(true));
+      }
+    }
   }
 };
 
