@@ -120,7 +120,7 @@ const makeLink = (forSubmenu) => {
   // span. Match whichever we're injecting into so it doesn't look out of place.
   a.innerHTML = forSubmenu
     ? "<div class='exporttype'>PDF (print)</div>"
-    : "<span class='exporttype buttonicon buttonicon-file-pdf' aria-hidden='true'></span> PDF (print)";
+    : "<span class='exporttype buttonicon buttonicon-file-pdf'>PDF (print)</span>";
   a.addEventListener('click', (e) => {
     e.preventDefault();
     printExport(htmlExportUrl());
